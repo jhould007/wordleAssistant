@@ -3,3 +3,4 @@
 
 # How to Run
 Simply clone the repository and open it in your favorite editor or IDE. Open a terminal, navigate to the root folder, compile Wordle.java with "javac Wordle.java", and run with "java Wordle". Enjoy!
+\

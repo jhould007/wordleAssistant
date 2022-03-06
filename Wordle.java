@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Wordle {
@@ -86,7 +85,14 @@ public class Wordle {
     // Apply the color condition from the first word to the second
     public static boolean checkCondition(String currentWord, String word, char color, int index) {
         if (color == 'x') {
+            //Conditions are for repeated letters
+            //If the word really does not contain a letter, proceed with that information normally.
+            if(grayLetter(currentWord, word.charAt(index))) {
             return (grayLetter(currentWord, word.charAt(index)));
+            //If the word does contain a letter but at least one of them is gray, look for words that don't have that letter in that position. 
+            } else {
+                return (!greenLetter(currentWord, word.charAt(index), index));
+            }
         } else if (color == 'y') {
             return (yellowLetter(currentWord, word.charAt(index), index));
         } else if (color == 'g') {
@@ -103,6 +109,16 @@ public class Wordle {
             }
         }
         return false;
+    }
+
+    //Check if a certain letter has occurred before in the word (sometimes a guess will have a repeated letter, the first being yellow or green and the second being gray)
+    public static boolean letterOccurredAlready(String word, char letter, int secondIndex) {
+        for(int i = 0; i < secondIndex; i++) {
+            if(word.charAt(i) == letter) {
+                return true; 
+            }
+        }
+        return false; 
     }
 
 }
