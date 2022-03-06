@@ -1,0 +1,20 @@
+Welcome! This tool will help you out in Wordle by taking your guess along with information about what color each letter was, and give you some suggestions!
+Enter your word, and then the color of each letter. Enter x for gray, y for yellow, and g for green. EXAMPLE: tears yxxyx
+tears yxxyx
+Here are some words you might be interested in!
+<SOME LIST OF WORDS MATCHING THE CRITERIA IS PRINTED HERE> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+PREVIOUS NUMERICAL SELECTION PROMPT: 
+What situation do you find yourself in? Enter 1 for all gray letters, 2 for some yellow and some gray, 3 for all yellow, 4 for some green, some yellow and some gray, and 5 for some green and some yellow. 
