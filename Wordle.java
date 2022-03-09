@@ -21,8 +21,7 @@ public class Wordle {
         }
         sc.close();
 
-        // The moment of truth. Find words in the text file matching the criteria
-        // outlined by the previous guess.
+        //Main program flow. Direct user with text, take their input, check it, and if valid, search for words matching the criteria. 
         Scanner sc2 = new Scanner(System.in);
         for (int i = 0; i < 5; i++) {
 
@@ -38,17 +37,26 @@ public class Wordle {
                 System.out.println("Congratulations!");
                 break;
             }
+            //Only proceed if the user enters valid input
+            if(userInputValid(userInput)) {
             String[] userInputArray = userInput.split(" ");
             System.out.println();
             System.out.println("Here are some guesses you could make.");
             findWords(words, userInputArray[0], userInputArray[1]);
-
+            
             // Print out and format the list contents
             for (String s : words) {
                 System.out.print(s + " | ");
             }
+
             System.out.println();
+            System.out.println();
+
+        } else {
+            System.out.println("Sorry, that input was invalid. Please try again."); 
+            i--; 
         }
+    }
         sc2.close();
     }
 
@@ -103,7 +111,7 @@ public class Wordle {
             // false. If so, remove the word from consideration.
             if (checkBooleanArray(conditions)) {
                 s.remove(i);
-                i--;
+                i = 0;
             }
         }
     }
@@ -139,16 +147,44 @@ public class Wordle {
         return false;
     }
 
-    // Check if a certain letter has occurred before in the word (sometimes a guess
-    // will have a repeated letter, the first being yellow or green and the second
-    // being gray)
-    public static boolean letterOccurredAlready(String word, char letter, int secondIndex) {
-        for (int i = 0; i < secondIndex; i++) {
-            if (word.charAt(i) == letter) {
-                return true;
+    // Handles user input and error checking
+    public static boolean userInputValid(String userInput) {
+        
+        //If the user enters nothing, the input is obviously invalid
+        if(userInput.trim().isEmpty()) {
+            return false; 
+        } 
+
+        String[] userInputArr = userInput.split(" "); 
+
+        //If the user only enters one string, that is invalid input
+        if(userInputArr.length == 1) {
+            System.out.println(); 
+            return false; 
+        }
+
+        //Store parts of the user input as variables, and ignore case if the user enters some or all capital letters
+        String lastGuess = userInputArr[0].toLowerCase(); 
+        String colorSequence = userInputArr[1].toLowerCase(); 
+
+        //Check to make sure each string the user enters is of length 5
+        if(lastGuess.length() != 5 || colorSequence.length() != 5) {
+            System.out.println(); 
+            return false; 
+        }
+
+        //If the first string has anything other than letters, or the second string has anything other than 'x', 'y' or 'g', the input is invalid
+        for(int i = 0; i < lastGuess.length(); i++) {
+            if(!Character.isLetter(lastGuess.charAt(i))) {
+                System.out.println(); 
+                return false; 
+            }
+            if(colorSequence.charAt(i) != 'x' && colorSequence.charAt(i) != 'y' && colorSequence.charAt(i) != 'g') {
+                System.out.println(); 
+                return false; 
             }
         }
-        return false;
+        return true; 
     }
 
 }
